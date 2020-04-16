@@ -21,6 +21,7 @@ class QuizViewController: UIViewController {
     @IBOutlet weak var aAnswerButton: UIButton!
     @IBOutlet weak var bAnswerButton: UIButton!
     
+    let network = Network()
     
     var timer: Timer?
     var timerCount = Int()
@@ -44,6 +45,7 @@ class QuizViewController: UIViewController {
         
         aAnswerButton.tag = 0
         bAnswerButton.tag = 1
+        
     }
     
     //MARK: - Timer
@@ -63,6 +65,7 @@ class QuizViewController: UIViewController {
     }
     
     @IBAction func answerTapped(_ sender: UIButton) {
+        network.getBreeds()
         if sender.tag == answerTag {
             score += 1
             timerSetDefaultTime()
