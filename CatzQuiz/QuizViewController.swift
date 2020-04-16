@@ -8,16 +8,28 @@
 
 import UIKit
 
+//struct Answer {
+//    let title: String
+//    let isRight: Bool
+//}
+
 class QuizViewController: UIViewController {
 
     @IBOutlet weak var scoreLabel: UILabel!
     @IBOutlet weak var catImageView: UIImageView!
     @IBOutlet weak var timeLabel: UILabel!
+    @IBOutlet weak var aAnswerButton: UIButton!
+    @IBOutlet weak var bAnswerButton: UIButton!
+    
     
     var timer: Timer?
     var timerCount = Int()
     let defaultTime = 5
+    var score = 0
+//    var answer = "lel2"
+    var answerTag = 1
     
+//    var answersArr = [Answer(title: "lel1", isRight: false), Answer(title: "lel2", isRight: true)]//, Answer(title: "lel3", isRight: false), Answer(title: "lel4", isRight: false)]
     
     override func viewWillDisappear(_ animated: Bool) {
         timer?.invalidate()
@@ -26,9 +38,19 @@ class QuizViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         timerCount = defaultTime
+        scoreLabel.text = String(score)
         
         timer = Timer.scheduledTimer(timeInterval: 1.0, target: self, selector: #selector(updateCounter), userInfo: nil, repeats: true)
-        // Do any additional setup after loading the view.
+        
+        aAnswerButton.tag = 0
+        bAnswerButton.tag = 1
+    }
+    
+    //MARK: - Timer
+
+    func timerSetDefaultTime() {
+        timerCount = defaultTime
+        timeLabel.text = String(timerCount)
     }
     
     @objc func updateCounter() {
@@ -36,12 +58,21 @@ class QuizViewController: UIViewController {
             timerCount = timerCount-1
             timeLabel.text = String(timerCount)
         } else {
-            timerCount = defaultTime
-            timeLabel.text = String(timerCount)
+            timerSetDefaultTime()
         }
     }
     
+    @IBAction func answerTapped(_ sender: UIButton) {
+        if sender.tag == answerTag {
+            score += 1
+            timerSetDefaultTime()
+        }
+        scoreLabel.text = String(score)
+    }
+    
     @IBAction func pausePressed(_ sender: Any) {
+        //TODO: create new timer on resume
+        timer?.invalidate()
     }
     
     /*
