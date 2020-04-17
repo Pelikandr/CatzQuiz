@@ -24,41 +24,29 @@ class Network {
         let task = session.dataTask(with: url, completionHandler: { data, response, error in
             if error != nil || data == nil {
                 print(error?.localizedDescription as Any)
+            } else {
+                do {
+                    let breeds = try JSONDecoder().decode(Array<Breed>.self, from: data!)
+                    completion(breeds)
+                } catch {
+                    print("======[JSON error: \(error.localizedDescription)]======")
+                }
             }
             guard let httpResponse = response as? HTTPURLResponse,
                   (200...299).contains(httpResponse.statusCode) else {
-                    print("======[Server error]======")
                     print(response as Any)
-                    print("==========================")
                     return
             }
             guard let mime = response?.mimeType, mime == "application/json" else {
                 print("======[Wrong MIME type]======")
                 return
             }
-            do {
-                let breeds = try JSONDecoder().decode(Array<Breed>.self, from: data!)
-//                let json = try JSONSerialization.jsonObject(with: data!, options: [])
-//                print("======[JSON]======")
-//                print(json)
-//                print("==================")
-//                print(breeds)
-//                print("==================")
-                completion(breeds)
-            } catch {
-                print("======[JSON error: \(error.localizedDescription)]======")
-            }
         })
         task.resume()
     }
     
-    //        var request = URLRequest(url: url)
-    //        request.httpMethod = "GET"
-    //        request.setValue(apiKey, forHTTPHeaderField: "x-api-key")
-            
-    //        let json = [
-    //            "id": "abys"
-    //        ]
-    //        let jsonData = try! JSONSerialization.data(withJSONObject: json, options: [])
+    func getImage(from url: URL, completion: @escaping (Data?, URLResponse?, Error?) -> ()) {
+        URLSession.shared.dataTask(with: url, completionHandler: completion).resume()
+    }
     
 }
