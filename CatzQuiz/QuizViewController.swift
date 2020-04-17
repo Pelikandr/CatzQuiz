@@ -64,8 +64,14 @@ class QuizViewController: UIViewController {
         }
     }
     
+    var breeds = [Breed]()
+    
+    
     @IBAction func answerTapped(_ sender: UIButton) {
-        network.getBreeds()
+        network.getBreeds() { (breeds) in
+            print("BREEDS \(breeds)")
+        }
+    
         if sender.tag == answerTag {
             score += 1
             timerSetDefaultTime()
@@ -78,14 +84,4 @@ class QuizViewController: UIViewController {
         timer?.invalidate()
     }
     
-    /*
-    // MARK: - Navigation
-
-    // In a storyboard-based application, you will often want to do a little preparation before navigation
-    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-        // Get the new view controller using segue.destination.
-        // Pass the selected object to the new view controller.
-    }
-    */
-
 }

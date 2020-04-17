@@ -60,11 +60,11 @@
 		4DE6B3382447A71900A9665E /* CatzQuiz */ = {
 			isa = PBXGroup;
 			children = (
-				4DE6B3392447A71900A9665E /* AppDelegate.swift */,
-				4DE6B33B2447A71900A9665E /* SceneDelegate.swift */,
 				4DEF4E1C244887DC00282178 /* Network.swift */,
 				4DE6B33D2447A71900A9665E /* ViewController.swift */,
 				4DEF4E1E24488D3D00282178 /* QuizViewController.swift */,
+				4DE6B3392447A71900A9665E /* AppDelegate.swift */,
+				4DE6B33B2447A71900A9665E /* SceneDelegate.swift */,
 				4DE6B33F2447A71900A9665E /* Main.storyboard */,
 				4DE6B3422447A72100A9665E /* Assets.xcassets */,
 				4DE6B3442447A72100A9665E /* LaunchScreen.storyboard */,

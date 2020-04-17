@@ -7,24 +7,19 @@
 //
 
 import Foundation
+import UIKit
+
+struct Breed: Codable {
+    var id: String
+}
 
 class Network {
     
     let apiKey = "fbc8cc25-8abb-4ab6-9dd0-6afcde5fe49c"
     
-    func getBreeds() {
+    func getBreeds(completion: @escaping ([Breed]) ->() ) {
         let session = URLSession.shared
         let url = URL(string: "https://api.thecatapi.com/v1/breeds")!
-        
-//        var request = URLRequest(url: url)
-//        request.httpMethod = "GET"
-//        request.setValue(apiKey, forHTTPHeaderField: "x-api-key")
-        
-//        let json = [
-//            "id": "abys"
-//        ]
-//        let jsonData = try! JSONSerialization.data(withJSONObject: json, options: [])
-
         
         let task = session.dataTask(with: url, completionHandler: { data, response, error in
             if error != nil || data == nil {
@@ -42,15 +37,28 @@ class Network {
                 return
             }
             do {
-                let json = try JSONSerialization.jsonObject(with: data!, options: [])
+                let breeds = try JSONDecoder().decode(Array<Breed>.self, from: data!)
+//                let json = try JSONSerialization.jsonObject(with: data!, options: [])
 //                print("======[JSON]======")
-                print(json)
+//                print(json)
 //                print("==================")
+//                print(breeds)
+//                print("==================")
+                completion(breeds)
             } catch {
                 print("======[JSON error: \(error.localizedDescription)]======")
             }
         })
         task.resume()
     }
+    
+    //        var request = URLRequest(url: url)
+    //        request.httpMethod = "GET"
+    //        request.setValue(apiKey, forHTTPHeaderField: "x-api-key")
+            
+    //        let json = [
+    //            "id": "abys"
+    //        ]
+    //        let jsonData = try! JSONSerialization.data(withJSONObject: json, options: [])
     
 }
