@@ -68,18 +68,22 @@ class QuizViewController: UIViewController {
     
     @IBAction func answerTapped(_ sender: UIButton) {
 //        network.getBreeds() { (breeds) in
-//            print("BREEDS \(breeds)")
+//            print("BREEDS IDs\(breeds)")
 //        }
         
-        let url = URL(string: "https://cdn2.thecatapi.com/images/IOjBCPLXA.jpg")!
-        network.getImage(from: url) { [weak self] data, response, error in
-            guard let `self` = self else { return }
-            
-            guard let data = data, error == nil else { return }
-            DispatchQueue.main.async() {
-                self.catImageView.image = UIImage(data: data)
-            }
+        network.getImagesFullInfo() { (breeds) in
+            print("BREEDS \(breeds)")
         }
+        
+//        let url = URL(string: "https://cdn2.thecatapi.com/images/IOjBCPLXA.jpg")!
+//        network.getImage(from: url) { [weak self] data, response, error in
+//            guard let `self` = self else { return }
+//
+//            guard let data = data, error == nil else { return }
+//            DispatchQueue.main.async() {
+//                self.catImageView.image = UIImage(data: data)
+//            }
+//        }
         
         if sender.tag == answerTag {
             score += 1
