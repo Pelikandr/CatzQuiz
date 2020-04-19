@@ -15,6 +15,9 @@
 		4DE6B3462447A72100A9665E /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 4DE6B3442447A72100A9665E /* LaunchScreen.storyboard */; };
 		4DEF4E1D244887DC00282178 /* Network.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4DEF4E1C244887DC00282178 /* Network.swift */; };
 		4DEF4E1F24488D3D00282178 /* QuizViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4DEF4E1E24488D3D00282178 /* QuizViewController.swift */; };
+		66454FE9244CB4FE00142398 /* Helpers.swift in Sources */ = {isa = PBXBuildFile; fileRef = 66454FE8244CB4FE00142398 /* Helpers.swift */; };
+		66454FEB244CB51900142398 /* NetworkConfiguration.swift in Sources */ = {isa = PBXBuildFile; fileRef = 66454FEA244CB51900142398 /* NetworkConfiguration.swift */; };
+		66454FED244CB54000142398 /* CatzQuizTarget.swift in Sources */ = {isa = PBXBuildFile; fileRef = 66454FEC244CB54000142398 /* CatzQuizTarget.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -28,6 +31,9 @@
 		4DE6B3472447A72100A9665E /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		4DEF4E1C244887DC00282178 /* Network.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Network.swift; sourceTree = "<group>"; };
 		4DEF4E1E24488D3D00282178 /* QuizViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = QuizViewController.swift; sourceTree = "<group>"; };
+		66454FE8244CB4FE00142398 /* Helpers.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Helpers.swift; sourceTree = "<group>"; };
+		66454FEA244CB51900142398 /* NetworkConfiguration.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NetworkConfiguration.swift; sourceTree = "<group>"; };
+		66454FEC244CB54000142398 /* CatzQuizTarget.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CatzQuizTarget.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -60,7 +66,7 @@
 		4DE6B3382447A71900A9665E /* CatzQuiz */ = {
 			isa = PBXGroup;
 			children = (
-				4DEF4E1C244887DC00282178 /* Network.swift */,
+				66454FE7244CB4F200142398 /* Network */,
 				4DE6B33D2447A71900A9665E /* MenuViewController.swift */,
 				4DEF4E1E24488D3D00282178 /* QuizViewController.swift */,
 				4DE6B3392447A71900A9665E /* AppDelegate.swift */,
@@ -71,6 +77,17 @@
 				4DE6B3472447A72100A9665E /* Info.plist */,
 			);
 			path = CatzQuiz;
+			sourceTree = "<group>";
+		};
+		66454FE7244CB4F200142398 /* Network */ = {
+			isa = PBXGroup;
+			children = (
+				4DEF4E1C244887DC00282178 /* Network.swift */,
+				66454FE8244CB4FE00142398 /* Helpers.swift */,
+				66454FEA244CB51900142398 /* NetworkConfiguration.swift */,
+				66454FEC244CB54000142398 /* CatzQuizTarget.swift */,
+			);
+			path = Network;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -145,10 +162,13 @@
 			buildActionMask = 2147483647;
 			files = (
 				4DE6B33E2447A71900A9665E /* MenuViewController.swift in Sources */,
+				66454FE9244CB4FE00142398 /* Helpers.swift in Sources */,
 				4DEF4E1F24488D3D00282178 /* QuizViewController.swift in Sources */,
 				4DE6B33A2447A71900A9665E /* AppDelegate.swift in Sources */,
+				66454FEB244CB51900142398 /* NetworkConfiguration.swift in Sources */,
 				4DEF4E1D244887DC00282178 /* Network.swift in Sources */,
 				4DE6B33C2447A71900A9665E /* SceneDelegate.swift in Sources */,
+				66454FED244CB54000142398 /* CatzQuizTarget.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -295,6 +315,7 @@
 				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_TEAM = 4SZLS5SJ8N;
 				INFOPLIST_FILE = CatzQuiz/Info.plist;
+				IPHONEOS_DEPLOYMENT_TARGET = 13.0;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
@@ -313,6 +334,7 @@
 				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_TEAM = 4SZLS5SJ8N;
 				INFOPLIST_FILE = CatzQuiz/Info.plist;
+				IPHONEOS_DEPLOYMENT_TARGET = 13.0;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",

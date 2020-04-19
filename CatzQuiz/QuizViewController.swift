@@ -8,10 +8,15 @@
 
 import UIKit
 
-//struct Answer {
-//    let title: String
-//    let isRight: Bool
-//}
+struct Answer {
+    let title: String
+    let isRight: Bool
+}
+
+struct Question {
+    let imageURL: URL
+    let answers: [Answer]
+}
 
 class QuizViewController: UIViewController {
     
@@ -20,8 +25,9 @@ class QuizViewController: UIViewController {
     @IBOutlet weak var timeLabel: UILabel!
     @IBOutlet weak var aAnswerButton: UIButton!
     @IBOutlet weak var bAnswerButton: UIButton!
-    
-    let network = Network()
+
+    var questions = [Question]()
+//    let network = Network()
     
     var timer: Timer?
     var timerCount = Int()
@@ -33,6 +39,7 @@ class QuizViewController: UIViewController {
     //    var answersArr = [Answer(title: "lel1", isRight: false), Answer(title: "lel2", isRight: true)]//, Answer(title: "lel3", isRight: false), Answer(title: "lel4", isRight: false)]
     
     override func viewWillDisappear(_ animated: Bool) {
+        super.viewWillDisappear(animated)
         timer?.invalidate()
     }
     
@@ -56,7 +63,7 @@ class QuizViewController: UIViewController {
     }
     
     @objc func updateCounter() {
-        if(timerCount > 0) {
+        if (timerCount > 0) {
             timerCount = timerCount-1
             timeLabel.text = String(timerCount)
         } else {
@@ -71,9 +78,9 @@ class QuizViewController: UIViewController {
 //            print("BREEDS IDs\(breeds)")
 //        }
         
-        network.getImagesFullInfo() { (breeds) in
-            print("BREEDS \(breeds)")
-        }
+//        network.getImagesFullInfo() { (breeds) in
+//            print("BREEDS \(breeds)")
+//        }
         
 //        let url = URL(string: "https://cdn2.thecatapi.com/images/IOjBCPLXA.jpg")!
 //        network.getImage(from: url) { [weak self] data, response, error in
