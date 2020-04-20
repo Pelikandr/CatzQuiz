@@ -64,6 +64,16 @@ class Network: NSObject, URLSessionDelegate {
             }
             debugPrint("DOWNLOAD: \(url.absoluteString)")
 
+            let fileName = url.lastPathComponent
+            guard let localUrl = NSURL(fileURLWithPath: NSTemporaryDirectory()).appendingPathComponent(fileName) else {
+                completion(NetworkError.emptyResponse, nil)
+                return
+            }
+            guard !FileManager.default.fileExists(atPath: localUrl.absoluteString) else {
+                completion(nil, localUrl)
+                return
+            }
+
             let downloadTask = self?.downloadsSession.downloadTask(with: url) { (location: URL?, _: URLResponse?, error: Error?) in
 
                 guard let location = location else {
@@ -71,16 +81,8 @@ class Network: NSObject, URLSessionDelegate {
                     return
                 }
 
-                let fileName = url.lastPathComponent
-                guard let localUrl = NSURL(fileURLWithPath: NSTemporaryDirectory()).appendingPathComponent(fileName) else {
-                    completion(NetworkError.emptyResponse, nil)
-                    return
-                }
-
                 do {
-                    if !FileManager.default.fileExists(atPath: localUrl.absoluteString) {
-                        try FileManager.default.copyItem(at: location, to: localUrl)
-                    }
+                    try FileManager.default.copyItem(at: location, to: localUrl)
                     completion(nil, localUrl)
                 }
                 catch {

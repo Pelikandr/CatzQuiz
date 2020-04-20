@@ -18,6 +18,7 @@
 		66454FE9244CB4FE00142398 /* Helpers.swift in Sources */ = {isa = PBXBuildFile; fileRef = 66454FE8244CB4FE00142398 /* Helpers.swift */; };
 		66454FEB244CB51900142398 /* NetworkConfiguration.swift in Sources */ = {isa = PBXBuildFile; fileRef = 66454FEA244CB51900142398 /* NetworkConfiguration.swift */; };
 		66454FED244CB54000142398 /* CatzQuizTarget.swift in Sources */ = {isa = PBXBuildFile; fileRef = 66454FEC244CB54000142398 /* CatzQuizTarget.swift */; };
+		66B4988D244DF1E100EE6B6B /* UserDefaultsPropertyWrapper.swift in Sources */ = {isa = PBXBuildFile; fileRef = 66B4988C244DF1E100EE6B6B /* UserDefaultsPropertyWrapper.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -34,6 +35,7 @@
 		66454FE8244CB4FE00142398 /* Helpers.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Helpers.swift; sourceTree = "<group>"; };
 		66454FEA244CB51900142398 /* NetworkConfiguration.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NetworkConfiguration.swift; sourceTree = "<group>"; };
 		66454FEC244CB54000142398 /* CatzQuizTarget.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CatzQuizTarget.swift; sourceTree = "<group>"; };
+		66B4988C244DF1E100EE6B6B /* UserDefaultsPropertyWrapper.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserDefaultsPropertyWrapper.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -75,6 +77,7 @@
 				4DE6B3422447A72100A9665E /* Assets.xcassets */,
 				4DE6B3442447A72100A9665E /* LaunchScreen.storyboard */,
 				4DE6B3472447A72100A9665E /* Info.plist */,
+				66B4988C244DF1E100EE6B6B /* UserDefaultsPropertyWrapper.swift */,
 			);
 			path = CatzQuiz;
 			sourceTree = "<group>";
@@ -166,6 +169,7 @@
 				4DEF4E1F24488D3D00282178 /* QuizViewController.swift in Sources */,
 				4DE6B33A2447A71900A9665E /* AppDelegate.swift in Sources */,
 				66454FEB244CB51900142398 /* NetworkConfiguration.swift in Sources */,
+				66B4988D244DF1E100EE6B6B /* UserDefaultsPropertyWrapper.swift in Sources */,
 				4DEF4E1D244887DC00282178 /* Network.swift in Sources */,
 				4DE6B33C2447A71900A9665E /* SceneDelegate.swift in Sources */,
 				66454FED244CB54000142398 /* CatzQuizTarget.swift in Sources */,

@@ -27,7 +27,9 @@ class QuizViewController: UIViewController {
     @IBOutlet weak var bAnswerButton: UIButton!
 
     @IBOutlet var answerButtons: [UIButton]!
-    
+
+    @UserDefault(key: "LeaderBoard", defaultValue: []) var leaderboard: [String]
+
     var questions = [Question]()
 //    let network = Network()
     
@@ -54,7 +56,6 @@ class QuizViewController: UIViewController {
         
         aAnswerButton.tag = 0
         bAnswerButton.tag = 1
-        
     }
     
     //MARK: - Timer

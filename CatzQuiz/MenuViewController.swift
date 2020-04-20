@@ -66,10 +66,10 @@ class MenuViewController: UIViewController {
         for answers in allAnswers {
             let rightIndex = Int.random(in: 0..<answers.count)
             let rightBreedID = answers[rightIndex].id
-            var answers = [Answer]()
+            var resAnswers = [Answer]()
             for i in 0..<answers.count {
                 let breed = answers[i]
-                answers.append(Answer(title: breed.title, isRight: i==rightIndex))
+                resAnswers.append(Answer(title: breed.name, isRight: i==rightIndex))
             }
             dispatchGroup.enter()
             getImage(with: rightBreedID) { [weak self] (image: CatImage) in
@@ -77,7 +77,7 @@ class MenuViewController: UIViewController {
 
                 self?.saveImage(with: image.url) { [weak self] (localURL: URL) in
                     self?.updateProgress()
-                    let question = Question(imageURL: localURL, answers: answers)
+                    let question = Question(imageURL: localURL, answers: resAnswers)
                     self?.questions.append(question)
                     dispatchGroup.leave()
                 }
