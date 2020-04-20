@@ -33,6 +33,8 @@ struct Breed: Decodable {
 struct CatImage: Decodable {
     let id: String
     let url: String
+    let width: Int
+    let height: Int
 }
 
 class Network: NSObject, URLSessionDelegate {
@@ -69,6 +71,9 @@ class Network: NSObject, URLSessionDelegate {
                 completion(NetworkError.emptyResponse, nil)
                 return
             }
+            
+            try? FileManager.default.removeItem(at: localUrl)
+            
             guard !FileManager.default.fileExists(atPath: localUrl.absoluteString) else {
                 completion(nil, localUrl)
                 return

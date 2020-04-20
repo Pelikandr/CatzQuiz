@@ -8,6 +8,7 @@
 
 import UIKit
 
+
 class MenuViewController: UIViewController {
 
     @IBOutlet weak var learnButton: UIButton!
@@ -77,7 +78,7 @@ class MenuViewController: UIViewController {
 
                 self?.saveImage(with: image.url) { [weak self] (localURL: URL) in
                     self?.updateProgress()
-                    let question = Question(imageURL: localURL, answers: resAnswers)
+                    let question = Question(imageURL: localURL, answers: resAnswers, imageSize: Size(width: image.width, height: image.height))
                     self?.questions.append(question)
                     dispatchGroup.leave()
                 }

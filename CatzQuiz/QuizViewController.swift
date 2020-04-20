@@ -8,14 +8,41 @@
 
 import UIKit
 
+extension UIImageView {
+    var contentClippingRect: CGRect {
+        guard let image = image else { return bounds }
+        guard contentMode == .scaleAspectFit else { return bounds }
+        guard image.size.width > 0 && image.size.height > 0 else { return bounds }
+
+        let scale: CGFloat
+        if image.size.width > image.size.height {
+            scale = bounds.width / image.size.width
+        } else {
+            scale = bounds.height / image.size.height
+        }
+
+        let size = CGSize(width: image.size.width * scale, height: image.size.height * scale)
+        let x = (bounds.width - size.width) / 2.0
+        let y = (bounds.height - size.height) / 2.0
+
+        return CGRect(x: x, y: y, width: size.width, height: size.height)
+    }
+}
+
 struct Answer {
     let title: String
     let isRight: Bool
 }
 
+struct Size {
+    let width: Int
+    let height: Int
+}
+
 struct Question {
     let imageURL: URL
     let answers: [Answer]
+    let imageSize: Size
 }
 
 class QuizViewController: UIViewController {
@@ -31,7 +58,6 @@ class QuizViewController: UIViewController {
     @UserDefault(key: "LeaderBoard", defaultValue: []) var leaderboard: [String]
 
     var questions = [Question]()
-//    let network = Network()
     
     var timer: Timer?
     var timerCount = Int()
@@ -40,8 +66,6 @@ class QuizViewController: UIViewController {
     var round = 0
     var answerTag = 1
     
-    //    var answersArr = [Answer(title: "lel1", isRight: false), Answer(title: "lel2", isRight: true)]//, Answer(title: "lel3", isRight: false), Answer(title: "lel4", isRight: false)]
-    
     override func viewWillDisappear(_ animated: Bool) {
         super.viewWillDisappear(animated)
         timer?.invalidate()
@@ -49,7 +73,7 @@ class QuizViewController: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        timerCount = defaultTime
+        timerSetRound()
         scoreLabel.text = String(score)
         
         timer = Timer.scheduledTimer(timeInterval: 1.0, target: self, selector: #selector(updateCounter), userInfo: nil, repeats: true)
@@ -60,16 +84,17 @@ class QuizViewController: UIViewController {
     
     //MARK: - Timer
     
-    func timerSetDefaultTime() {
+    func timerSetRound() {
         timerCount = defaultTime
         timeLabel.text = String(timerCount)
-//        if let atImagePath = FileManager.default.contents(atPath: questions[round].imageURL.absoluteString) {
-//            catImageView.image = UIImage(data: atImagePath)
-//        }
         
-//        for button in answerButtons {
-//            button.setTitle(questions[round].answers[0].title, for: .normal)
-//        }
+        catImageView.image = UIImage(contentsOfFile: questions[round].imageURL.path)
+//        catImageView.frame = CGRect(x: 0, y: 0, width: catImageView.frame.width, height: catImageView.frame.height * 0.1) //catImageView.contentClippingRect
+        
+        
+        for i in 0...3 {
+            answerButtons[i].setTitle(questions[round].answers[i].title, for: .normal)
+        }
     }
     
     @objc func updateCounter() {
@@ -81,7 +106,7 @@ class QuizViewController: UIViewController {
             if round > 10 {
                 timer?.invalidate()
             } else {
-                timerSetDefaultTime()
+                timerSetRound()
             }
         }
     }
@@ -95,7 +120,7 @@ class QuizViewController: UIViewController {
                 timer?.invalidate()
             } else {
                 score += 1
-                timerSetDefaultTime()
+                timerSetRound()
             }
         }
         scoreLabel.text = String(score)
