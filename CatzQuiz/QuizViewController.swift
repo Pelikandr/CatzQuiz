@@ -26,6 +26,8 @@ class QuizViewController: UIViewController {
     @IBOutlet weak var aAnswerButton: UIButton!
     @IBOutlet weak var bAnswerButton: UIButton!
 
+    @IBOutlet var answerButtons: [UIButton]!
+    
     var questions = [Question]()
 //    let network = Network()
     
@@ -33,7 +35,7 @@ class QuizViewController: UIViewController {
     var timerCount = Int()
     let defaultTime = 5
     var score = 0
-    //    var answer = "lel2"
+    var round = 0
     var answerTag = 1
     
     //    var answersArr = [Answer(title: "lel1", isRight: false), Answer(title: "lel2", isRight: true)]//, Answer(title: "lel3", isRight: false), Answer(title: "lel4", isRight: false)]
@@ -60,6 +62,13 @@ class QuizViewController: UIViewController {
     func timerSetDefaultTime() {
         timerCount = defaultTime
         timeLabel.text = String(timerCount)
+//        if let atImagePath = FileManager.default.contents(atPath: questions[round].imageURL.absoluteString) {
+//            catImageView.image = UIImage(data: atImagePath)
+//        }
+        
+//        for button in answerButtons {
+//            button.setTitle(questions[round].answers[0].title, for: .normal)
+//        }
     }
     
     @objc func updateCounter() {
@@ -67,34 +76,26 @@ class QuizViewController: UIViewController {
             timerCount = timerCount-1
             timeLabel.text = String(timerCount)
         } else {
-            timerSetDefaultTime()
+            round += 1
+            if round > 10 {
+                timer?.invalidate()
+            } else {
+                timerSetDefaultTime()
+            }
         }
     }
     
     var breeds = [Breed]()
     
     @IBAction func answerTapped(_ sender: UIButton) {
-//        network.getBreeds() { (breeds) in
-//            print("BREEDS IDs\(breeds)")
-//        }
-        
-//        network.getImagesFullInfo() { (breeds) in
-//            print("BREEDS \(breeds)")
-//        }
-        
-//        let url = URL(string: "https://cdn2.thecatapi.com/images/IOjBCPLXA.jpg")!
-//        network.getImage(from: url) { [weak self] data, response, error in
-//            guard let `self` = self else { return }
-//
-//            guard let data = data, error == nil else { return }
-//            DispatchQueue.main.async() {
-//                self.catImageView.image = UIImage(data: data)
-//            }
-//        }
-        
         if sender.tag == answerTag {
-            score += 1
-            timerSetDefaultTime()
+            round += 1
+            if round == 10 {
+                timer?.invalidate()
+            } else {
+                score += 1
+                timerSetDefaultTime()
+            }
         }
         scoreLabel.text = String(score)
     }
