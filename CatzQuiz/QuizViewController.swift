@@ -88,7 +88,11 @@ class QuizViewController: UIViewController {
         timerCount = defaultTime
         timeLabel.text = String(timerCount)
         
-        catImageView.image = UIImage(contentsOfFile: questions[round].imageURL.path)
+        if let image = UIImage(contentsOfFile: questions[round].imageURL.path) {
+            setNewImageWithFade(image: image)
+        }
+//        catImageView.image = UIImage(contentsOfFile: questions[round].imageURL.path)
+        
 //        catImageView.frame = CGRect(x: 0, y: 0, width: catImageView.frame.width, height: catImageView.frame.height * 0.1) //catImageView.contentClippingRect
         
         
@@ -129,6 +133,14 @@ class QuizViewController: UIViewController {
     @IBAction func pausePressed(_ sender: Any) {
         //TODO: create new timer on resume
         timer?.invalidate()
+    }
+    
+    func setNewImageWithFade(image: UIImage) {
+        UIView.transition(with: self.catImageView,
+        duration:0.5,
+        options: .transitionCrossDissolve,
+        animations: { self.catImageView.image = image },
+        completion: nil)
     }
     
 }
