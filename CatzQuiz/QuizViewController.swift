@@ -68,6 +68,8 @@ class QuizViewController: UIViewController {
     override func viewWillDisappear(_ animated: Bool) {
         super.viewWillDisappear(animated)
         timer?.invalidate()
+        clearCache()
+        
     }
     
     override func viewDidLoad() {
@@ -152,6 +154,27 @@ class QuizViewController: UIViewController {
         options: .transitionCrossDissolve,
         animations: { self.catImageView.image = image },
         completion: nil)
+    }
+    
+    func clearCache(){
+        if let path = URL(string: NSTemporaryDirectory()) {
+            let fileManager = FileManager.default
+            do {
+                // Get the directory contents urls (including subfolders urls)
+                let directoryContents = try FileManager.default.contentsOfDirectory( at: path, includingPropertiesForKeys: nil, options: [])
+                for file in directoryContents {
+                    do {
+                        try fileManager.removeItem(at: file)
+                    }
+                    catch let error as NSError {
+                        debugPrint("ERROR: \(error)")
+                    }
+                }
+            } catch let error as NSError {
+                print(error.localizedDescription)
+            }
+        }
+        
     }
     
 }
