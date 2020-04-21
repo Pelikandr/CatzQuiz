@@ -64,7 +64,6 @@ class QuizViewController: UIViewController {
     let defaultTime = 5
     var score = 0
     var round = 0
-    var answerTag = 1
     
     override func viewWillDisappear(_ animated: Bool) {
         super.viewWillDisappear(animated)
@@ -77,24 +76,18 @@ class QuizViewController: UIViewController {
         scoreLabel.text = String(score)
         
         timer = Timer.scheduledTimer(timeInterval: 1.0, target: self, selector: #selector(updateCounter), userInfo: nil, repeats: true)
-        
-        aAnswerButton.tag = 0
-        bAnswerButton.tag = 1
     }
     
     //MARK: - Timer
     
     func timerSetRound() {
+        print(rightAnswer())
         timerCount = defaultTime
         timeLabel.text = String(timerCount)
         
         if let image = UIImage(contentsOfFile: questions[round].imageURL.path) {
             setNewImageWithFade(image: image)
         }
-//        catImageView.image = UIImage(contentsOfFile: questions[round].imageURL.path)
-        
-//        catImageView.frame = CGRect(x: 0, y: 0, width: catImageView.frame.width, height: catImageView.frame.height * 0.1) //catImageView.contentClippingRect
-        
         
         for i in 0...3 {
             answerButtons[i].setTitle(questions[round].answers[i].title, for: .normal)
@@ -106,9 +99,8 @@ class QuizViewController: UIViewController {
             timerCount = timerCount-1
             timeLabel.text = String(timerCount)
         } else {
-            round += 1
-            if round > 10 {
-                timer?.invalidate()
+            if round > 9 {
+                gameOver()
             } else {
                 timerSetRound()
             }
@@ -118,21 +110,40 @@ class QuizViewController: UIViewController {
     var breeds = [Breed]()
     
     @IBAction func answerTapped(_ sender: UIButton) {
-        if sender.tag == answerTag {
-            round += 1
-            if round == 10 {
-                timer?.invalidate()
-            } else {
-                score += 1
-                timerSetRound()
-            }
+        if sender.titleLabel?.text == rightAnswer() {
+            score += 10
         }
+        round += 1
+        if round > 9 {
+            gameOver()
+        } else {
+            timerSetRound()
+        }
+        
         scoreLabel.text = String(score)
+        
+}
+    
+    func gameOver() {
+        print("game over")
+        timer?.invalidate()
+        performSegue(withIdentifier: "LeaderboardSeague", sender: self)
     }
     
     @IBAction func pausePressed(_ sender: Any) {
         //TODO: create new timer on resume
         timer?.invalidate()
+    }
+    
+    func rightAnswer() -> String {
+        let questionsArr = questions[round]
+        var answer = String()
+        for i in 0...3 {
+            if questionsArr.answers[i].isRight == true {
+                answer = questionsArr.answers[i].title
+            }
+        }
+        return answer
     }
     
     func setNewImageWithFade(image: UIImage) {
