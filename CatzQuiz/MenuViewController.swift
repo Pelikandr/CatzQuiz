@@ -13,6 +13,7 @@ class MenuViewController: UIViewController {
     
     @IBOutlet weak var learnButton: UIButton!
     @IBOutlet weak var playButton: UIButton!
+    @IBOutlet weak var leaderboardButton: UIButton!
     @IBOutlet weak var progressView: UIProgressView!
     
     override func viewDidLoad() {
@@ -139,11 +140,13 @@ class MenuViewController: UIViewController {
     private func disableView() {
         learnButton.isEnabled = false
         playButton.isEnabled = false
+        leaderboardButton.isEnabled = false
     }
     
     private func enableView() {
         learnButton.isEnabled = true
         playButton.isEnabled = true
+        leaderboardButton.isEnabled = true
     }
 }
 

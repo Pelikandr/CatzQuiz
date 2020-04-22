@@ -101,8 +101,10 @@ class QuizViewController: UIViewController {
     func gameOver() {
         print("game over")
         timer?.invalidate()
-        leaderboard.append( Leaderboard(date: date(), score: score) )
-        leaderboard = leaderboard.sorted() {$0.score > $1.score }
+        if score != 0 {
+            leaderboard.append( Leaderboard(date: date(), score: score) )
+            leaderboard = leaderboard.sorted() {$0.score > $1.score }
+        }
         performSegue(withIdentifier: "LeaderboardSeague", sender: self)
     }
     

@@ -21,6 +21,7 @@ class LeaderboardAdapter: NSObject, UITableViewDelegate, UITableViewDataSource {
         let cell = tableView.dequeueReusableCell(withIdentifier: "leaderboardCell", for: indexPath)
         let text = ("Score: \(leaderboard[indexPath.row].score) \t Date: \(leaderboard[indexPath.row].date)")
         cell.textLabel?.text = text
+        cell.textLabel?.textAlignment = .center
         return cell
     }
     
