@@ -79,9 +79,9 @@ class QuizViewController: UIViewController {
         scoreLabel.text = String(score)
         
         pauseView.layer.cornerRadius = 10
-        pauseView.backgroundColor = UIColor.systemGray.withAlphaComponent(0.85)
-//        pauseView.layer.borderWidth = 3
-//        pauseView.layer.borderColor = UIColor.systemGray.cgColor
+        pauseView.backgroundColor = UIColor.systemGray.withAlphaComponent(0.95)
+        //        pauseView.layer.borderWidth = 3
+        //        pauseView.layer.borderColor = UIColor.systemGray.cgColor
         
         timer = Timer.scheduledTimer(timeInterval: 1.0, target: self, selector: #selector(updateCounter), userInfo: nil, repeats: true)
     }
@@ -104,16 +104,7 @@ class QuizViewController: UIViewController {
     }
     
     func showGameOverAlert() {
-        var title = String()
-        if score >= 80 {
-            title = "Are u Kuklachev? \(score) points!"
-        } else if score >= 50 {
-            title = "Awesome! You've got \(score) points"
-        } else if score >= 30 {
-            title = "Good job! You've got \(score) points"
-        } else if score >= 10 {
-            title = "You've got \(score) points. Try reading guide!"
-        }
+        let title = alertTitle()
         
         if self.score != 0 {
             let alert = UIAlertController(title: title, message: "Enter your name", preferredStyle: .alert)
@@ -124,11 +115,17 @@ class QuizViewController: UIViewController {
                 guard let self = self else { return }
                 if let name = alert.textFields?.first?.text {
                     print("Your name: \(name)")
-                    
+                    if name != "" {
                         self.leaderboard.append( Leaderboard(name: name, score: self.score) )
                         self.leaderboard = self.leaderboard.sorted() {$0.score > $1.score }
-                    
-                    self.performSegueToLeaderboard()
+                        self.performSegueToLeaderboard()
+                    } else {
+                        let errorAlert = UIAlertController(title: "Name can't be empty", message: nil, preferredStyle: .alert)
+                        errorAlert.addAction(UIAlertAction(title: "OK", style: .default, handler: { [weak self] action in
+                            self!.present(alert, animated: true)
+                        }))
+                        self.present(errorAlert, animated: true)
+                    }
                 }
             }))
             self.present(alert, animated: true)
@@ -136,18 +133,36 @@ class QuizViewController: UIViewController {
             let alert = UIAlertController(title: "Ooops you've got 0 points", message: "Maybe try to read guide?", preferredStyle: .alert)
             alert.addAction(UIAlertAction(title: "Guide", style: .default, handler: { [weak self] action in
                 guard let self = self else { return }
-                    self.performSegueToLeaderboard()
+                self.performSegueToGuide()
             }))
             alert.addAction(UIAlertAction(title: "Leaderboard", style: .default, handler: { [weak self] action in
                 guard let self = self else { return }
-                    self.performSegueToLeaderboard()
+                self.performSegueToLeaderboard()
             }))
             self.present(alert, animated: true)
         }
     }
     
+    func alertTitle() -> String {
+        var title = String()
+        if score >= 80 {
+            title = "Are u Kuklachev? \(score) points!"
+        } else if score >= 50 {
+            title = "Awesome! You've got \(score) points"
+        } else if score >= 30 {
+            title = "Good job! You've got \(score) points"
+        } else if score >= 10 {
+            title = "You've got \(score) points. Try reading guide!"
+        }
+        return title
+    }
+    
     func performSegueToLeaderboard() {
         performSegue(withIdentifier: "LeaderboardSeague", sender: self)
+    }
+    
+    func performSegueToGuide() {
+        performSegue(withIdentifier: "GuideSegue", sender: self)
     }
     
     func gameOver() {

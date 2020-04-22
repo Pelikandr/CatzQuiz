@@ -271,6 +271,7 @@
                         <outletCollection property="answerButtons" destination="s2j-l3-9j1" collectionClass="NSMutableArray" id="2US-ac-Kf3"/>
                         <outletCollection property="answerButtons" destination="RRk-E7-qB1" collectionClass="NSMutableArray" id="rw1-gZ-KIp"/>
                         <segue destination="98n-wK-mur" kind="show" identifier="LeaderboardSeague" id="cJz-x9-d0d"/>
+                        <segue destination="U1D-A7-77U" kind="presentation" id="n95-Yv-4xb"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="HOG-gl-YGg" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
@@ -546,6 +547,7 @@
         </scene>
     </scenes>
     <inferredMetricsTieBreakers>
+        <segue reference="n95-Yv-4xb"/>
         <segue reference="cJz-x9-d0d"/>
         <segue reference="wDY-u6-Sb5"/>
     </inferredMetricsTieBreakers>

@@ -38,6 +38,8 @@ class MenuViewController: UIViewController {
         prepareGameData()
     }
     
+    
+    
     // MARK: - Private
     
     private var questions = [Question]()
