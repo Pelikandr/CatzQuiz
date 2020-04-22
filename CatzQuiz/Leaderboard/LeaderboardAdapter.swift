@@ -19,7 +19,7 @@ class LeaderboardAdapter: NSObject, UITableViewDelegate, UITableViewDataSource {
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: "leaderboardCell", for: indexPath)
-        let text = ("Score: \(leaderboard[indexPath.row].score) \t Date: \(leaderboard[indexPath.row].date)")
+        let text = ("\(leaderboard[indexPath.row].name): \(leaderboard[indexPath.row].score) points")
         cell.textLabel?.text = text
         cell.textLabel?.textAlignment = .center
         return cell

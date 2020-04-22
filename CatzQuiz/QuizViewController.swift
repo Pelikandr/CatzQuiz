@@ -46,7 +46,7 @@ struct Question {
 }
 
 struct Leaderboard: Codable {
-    let date: String
+    let name: String
     let score: Int
 }
 
@@ -57,6 +57,7 @@ class QuizViewController: UIViewController {
     @IBOutlet weak var timeLabel: UILabel!
     @IBOutlet weak var aAnswerButton: UIButton!
     @IBOutlet weak var bAnswerButton: UIButton!
+    @IBOutlet weak var pauseView: UIView!
     
     lazy var dateFormatter = DateFormatter()
     
@@ -76,6 +77,11 @@ class QuizViewController: UIViewController {
         super.viewDidLoad()
         timerSetRound()
         scoreLabel.text = String(score)
+        
+        pauseView.layer.cornerRadius = 10
+        pauseView.backgroundColor = UIColor.systemGray.withAlphaComponent(0.85)
+//        pauseView.layer.borderWidth = 3
+//        pauseView.layer.borderColor = UIColor.systemGray.cgColor
         
         timer = Timer.scheduledTimer(timeInterval: 1.0, target: self, selector: #selector(updateCounter), userInfo: nil, repeats: true)
     }
@@ -97,15 +103,57 @@ class QuizViewController: UIViewController {
         return answer
     }
     
+    func showGameOverAlert() {
+        var title = String()
+        if score >= 80 {
+            title = "Are u Kuklachev? \(score) points!"
+        } else if score >= 50 {
+            title = "Awesome! You've got \(score) points"
+        } else if score >= 30 {
+            title = "Good job! You've got \(score) points"
+        } else if score == 10 {
+            title = "You've got \(score) points. Try reading guide!"
+        }
+        
+        if self.score != 0 {
+            let alert = UIAlertController(title: title, message: "Enter your name", preferredStyle: .alert)
+            alert.addTextField(configurationHandler: { textField in
+                textField.placeholder = "Input your name here..."
+            })
+            alert.addAction(UIAlertAction(title: "OK", style: .default, handler: { [weak self] action in
+                guard let self = self else { return }
+                if let name = alert.textFields?.first?.text {
+                    print("Your name: \(name)")
+                    
+                        self.leaderboard.append( Leaderboard(name: name, score: self.score) )
+                        self.leaderboard = self.leaderboard.sorted() {$0.score > $1.score }
+                    
+                    self.performSegueToLeaderboard()
+                }
+            }))
+            self.present(alert, animated: true)
+        } else {
+            let alert = UIAlertController(title: "Ooops you've got 0 points", message: "Maybe try to read guide?", preferredStyle: .alert)
+            alert.addAction(UIAlertAction(title: "Guide", style: .default, handler: { [weak self] action in
+                guard let self = self else { return }
+                    self.performSegueToLeaderboard()
+            }))
+            alert.addAction(UIAlertAction(title: "Leaderboard", style: .default, handler: { [weak self] action in
+                guard let self = self else { return }
+                    self.performSegueToLeaderboard()
+            }))
+            self.present(alert, animated: true)
+        }
+    }
+    
+    func performSegueToLeaderboard() {
+        performSegue(withIdentifier: "LeaderboardSeague", sender: self)
+    }
     
     func gameOver() {
         print("game over")
         timer?.invalidate()
-        if score != 0 {
-            leaderboard.append( Leaderboard(date: date(), score: score) )
-            leaderboard = leaderboard.sorted() {$0.score > $1.score }
-        }
-        performSegue(withIdentifier: "LeaderboardSeague", sender: self)
+        showGameOverAlert()
     }
     
     func setNewImageWithFade(image: UIImage) {
@@ -135,12 +183,7 @@ class QuizViewController: UIViewController {
         }
     }
     
-    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-        super.prepare(for: segue, sender: nil)
-//        if let next = segue.destination as? LeaderBoardViewController {
-//            next.leaderboard = leaderboard
-//        }
-    }
+   
     
     private func date() -> String {
         dateFormatter.dateFormat = "dd MMMM, HH:mm"
@@ -151,6 +194,7 @@ class QuizViewController: UIViewController {
     
     func timerSetRound() {
         print(rightAnswer())
+    
         timerCount = defaultTime
         timeLabel.text = String(timerCount)
         
@@ -168,12 +212,14 @@ class QuizViewController: UIViewController {
             timerCount = timerCount-1
             timeLabel.text = String(timerCount)
         } else {
-            if round > 9 {
+            if round > 8 {
                 gameOver()
             } else {
+                round += 1
                 timerSetRound()
             }
         }
+            
     }
     
     @IBAction func answerTapped(_ sender: UIButton) {
@@ -189,8 +235,18 @@ class QuizViewController: UIViewController {
         scoreLabel.text = String(score)
     }
     
-    @IBAction func pausePressed(_ sender: Any) {
-        //TODO: create new timer on resume
+    @IBAction func onPause(_ sender: Any) {
+        pauseView.isHidden = false
         timer?.invalidate()
+        for button in answerButtons {
+            button.isUserInteractionEnabled = false
+        }
+    }
+    @IBAction func onResume(_ sender: Any) {
+        timer = Timer.scheduledTimer(timeInterval: 1.0, target: self, selector: #selector(updateCounter), userInfo: nil, repeats: true)
+        pauseView.isHidden = true
+        for button in answerButtons {
+            button.isUserInteractionEnabled = true
+        }
     }
 }
