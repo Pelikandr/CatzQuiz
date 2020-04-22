@@ -8,27 +8,6 @@
 
 import UIKit
 
-extension UIImageView {
-    var contentClippingRect: CGRect {
-        guard let image = image else { return bounds }
-        guard contentMode == .scaleAspectFit else { return bounds }
-        guard image.size.width > 0 && image.size.height > 0 else { return bounds }
-        
-        let scale: CGFloat
-        if image.size.width > image.size.height {
-            scale = bounds.width / image.size.width
-        } else {
-            scale = bounds.height / image.size.height
-        }
-        
-        let size = CGSize(width: image.size.width * scale, height: image.size.height * scale)
-        let x = (bounds.width - size.width) / 2.0
-        let y = (bounds.height - size.height) / 2.0
-        
-        return CGRect(x: x, y: y, width: size.width, height: size.height)
-    }
-}
-
 struct Answer {
     let title: String
     let isRight: Bool
@@ -52,11 +31,11 @@ struct Leaderboard: Codable {
 
 class QuizViewController: UIViewController {
     
+    @IBOutlet weak var resumeButton: UIButton!
+    @IBOutlet weak var menuButton: UIButton!
     @IBOutlet weak var scoreLabel: UILabel!
     @IBOutlet weak var catImageView: UIImageView!
     @IBOutlet weak var timeLabel: UILabel!
-    @IBOutlet weak var aAnswerButton: UIButton!
-    @IBOutlet weak var bAnswerButton: UIButton!
     @IBOutlet weak var pauseView: UIView!
     
     lazy var dateFormatter = DateFormatter()
@@ -79,17 +58,32 @@ class QuizViewController: UIViewController {
         scoreLabel.text = String(score)
         
         pauseView.layer.cornerRadius = 10
-        pauseView.backgroundColor = UIColor.systemGray.withAlphaComponent(0.95)
-        //        pauseView.layer.borderWidth = 3
-        //        pauseView.layer.borderColor = UIColor.systemGray.cgColor
+        catImageView.layer.cornerRadius = 5
+        catImageView.clipsToBounds = true
         
         timer = Timer.scheduledTimer(timeInterval: 1.0, target: self, selector: #selector(updateCounter), userInfo: nil, repeats: true)
+    }
+    
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+        navigationController?.setNavigationBarHidden(true, animated: animated)
     }
     
     override func viewWillDisappear(_ animated: Bool) {
         super.viewWillDisappear(animated)
         timer?.invalidate()
-        clearCache()
+    }
+    
+    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
+        super.prepare(for: segue, sender: sender)
+        if let next = segue.destination as? GuideViewController {
+            next.navigationItem.hidesBackButton = true
+            next.navigationItem.rightBarButtonItem = UIBarButtonItem(title: "Menu", style: .plain, target: self, action: #selector(backToMenu))
+        }
+    }
+    
+    @objc func backToMenu() {
+        navigationController?.popToRootViewController(animated: true)
     }
     
     func rightAnswer() -> String {
@@ -171,6 +165,10 @@ class QuizViewController: UIViewController {
         showGameOverAlert()
     }
     
+    @IBAction func onMenu(_ sender: Any) {
+        navigationController?.popToRootViewController(animated: true)
+    }
+    
     func setNewImageWithFade(image: UIImage) {
         UIView.transition(with: self.catImageView,
                           duration:0.5,
@@ -178,27 +176,6 @@ class QuizViewController: UIViewController {
                           animations: { self.catImageView.image = image },
                           completion: nil)
     }
-    
-    func clearCache(){
-        if let path = URL(string: NSTemporaryDirectory()) {
-            let fileManager = FileManager.default
-            do {
-                let directoryContents = try FileManager.default.contentsOfDirectory( at: path, includingPropertiesForKeys: nil, options: [])
-                for file in directoryContents {
-                    do {
-                        try fileManager.removeItem(at: file)
-                    }
-                    catch let error as NSError {
-                        debugPrint("ERROR: \(error)")
-                    }
-                }
-            } catch let error as NSError {
-                print(error.localizedDescription)
-            }
-        }
-    }
-    
-   
     
     private func date() -> String {
         dateFormatter.dateFormat = "dd MMMM, HH:mm"
@@ -208,6 +185,11 @@ class QuizViewController: UIViewController {
     //MARK: - Timer
     
     func timerSetRound() {
+        let bgColor = UIColor.randomLight()
+        let buttonsColor = bgColor.inverse()
+        view.backgroundColor = bgColor
+        answerButtons.forEach({ $0.setTitleColor(buttonsColor, for: .normal) })
+        
         print(rightAnswer())
     
         timerCount = defaultTime
@@ -251,6 +233,7 @@ class QuizViewController: UIViewController {
     }
     
     @IBAction func onPause(_ sender: Any) {
+        
         pauseView.isHidden = false
         timer?.invalidate()
         for button in answerButtons {

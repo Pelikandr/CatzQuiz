@@ -16,19 +16,18 @@ class GuideAdapter: NSObject, UICollectionViewDelegate, UICollectionViewDataSour
     
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
         print(breeds.count)
-        return 9//breeds.count
+        return breeds.count
     }
     
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "guideCell", for: indexPath) as! GuideCollectionViewCell
-//        cell.titleLabel.text = breeds[indexPath.row].name
-//        cell.catImageView.image = UIImage(named: "company")
+        cell.titleLabel.text = breeds[indexPath.row].name
+        cell.catImageView.setImage(from: breeds[indexPath.row].sampleImageURL)
+        cell.layoutIfNeeded()
         return cell
     }
     
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
         onCatSelected?(breeds[indexPath.row].self)
     }
-    
-    
 }

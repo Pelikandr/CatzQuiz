@@ -13,9 +13,18 @@ class GuideCollectionViewCell: UICollectionViewCell {
     @IBOutlet weak var catImageView: UIImageView!
     @IBOutlet weak var titleLabel: UILabel!
     
-//    override func prepareForReuse() {
-//        super.prepareForReuse()
-//        catImageView.image = nil
-//        titleLabel.text = nil
-//    }
+    override func awakeFromNib() {
+        super.awakeFromNib()
+        
+        contentView.backgroundColor = UIColor.random()
+        contentView.layer.cornerRadius = 5
+        catImageView.layer.cornerRadius = 5
+    }
+    
+    override func prepareForReuse() {
+        super.prepareForReuse()
+        
+        catImageView.image = nil
+        titleLabel.text = nil
+    }
 }

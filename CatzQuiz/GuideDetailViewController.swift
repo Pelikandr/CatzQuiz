@@ -9,6 +9,7 @@
 import UIKit
 
 class GuideDetailTableViewController: UITableViewController {
+
     @IBOutlet weak var catImageView: UIImageView!
     @IBOutlet weak var breedLabel: UILabel!
     @IBOutlet weak var descriptionTextView: UITextView!
@@ -19,39 +20,12 @@ class GuideDetailTableViewController: UITableViewController {
         super.viewDidLoad()
         breedLabel.text = breed?.name
         descriptionTextView.text = breed?.description
+        view.backgroundColor = UIColor.randomLight()
     
-        getImage(with: breed!.id) { [weak self] (image: CatImage) in
-            guard let self = self else { return }
-            self.saveImage(with: image.url) { (localURL: URL) in
-                if let image = UIImage(contentsOfFile: localURL.absoluteString) {
-                    self.catImageView.image = image
-                }
-            }
-        }
+        catImageView.setImage(from: breed?.sampleImageURL)
     }
     
-    private func getImage(with breedID: String, completion: ((CatImage) -> Void)?) {
-        Network.shared.getImage(with: breedID) { (error: Error?, image: [CatImage]?) in
-            if let error = error {
-                print("ERROR: \(error.localizedDescription)")
-            } else if let image = image?.first {
-                completion?(image)
-            } else {
-                print("ERROR: No data")
-            }
-        }
+    @IBAction func onMenu(_ sender: Any) {
+        navigationController?.popToRootViewController(animated: true)
     }
-    
-    private func saveImage(with url: String, completion: ((URL) -> Void)?) {
-        Network.shared.saveImage(from: url) { (error: Error?, localURL: URL?) in
-            if let error = error {
-                print("ERROR: \(error.localizedDescription)")
-            } else if let localURL = localURL {
-                completion?(localURL)
-            } else {
-                print("ERROR: No data")
-            }
-        }
-    }
-
 }

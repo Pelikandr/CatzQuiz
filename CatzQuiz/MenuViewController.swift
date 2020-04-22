@@ -20,6 +20,23 @@ class MenuViewController: UIViewController {
         super.viewDidLoad()
     }
     
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+     
+        navigationController?.setNavigationBarHidden(true, animated: animated)
+        enableView()
+        progressView.isHidden = true
+        
+        let bgColor = UIColor.randomLight()
+        let buttonsColor = bgColor.inverse()
+        view.backgroundColor = bgColor
+        [playButton, learnButton, leaderboardButton].forEach({ $0.setTitleColor(buttonsColor, for: .normal) })
+        
+        DispatchQueue.global(qos: .utility).async { [weak self] in
+            self?.clearCache()
+        }
+    }
+    
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
         super.prepare(for: segue, sender: nil)
         if let next = segue.destination as? QuizViewController {
@@ -37,9 +54,7 @@ class MenuViewController: UIViewController {
         questions.removeAll()
         prepareGameData()
     }
-    
-    
-    
+        
     // MARK: - Private
     
     private var questions = [Question]()
@@ -149,6 +164,24 @@ class MenuViewController: UIViewController {
         learnButton.isEnabled = true
         playButton.isEnabled = true
         leaderboardButton.isEnabled = true
+    }
+    
+    private func clearCache() {
+        if let path = FileManager.default.urls(for: .cachesDirectory, in: .allDomainsMask).first {
+            do {
+                let directoryContents = try FileManager.default.contentsOfDirectory( at: path, includingPropertiesForKeys: nil, options: [])
+                for file in directoryContents {
+                    do {
+                        try FileManager.default.removeItem(at: file)
+                    }
+                    catch let error as NSError {
+                        debugPrint("ERROR: \(error)")
+                    }
+                }
+            } catch let error as NSError {
+                print(error.localizedDescription)
+            }
+        }
     }
 }
 

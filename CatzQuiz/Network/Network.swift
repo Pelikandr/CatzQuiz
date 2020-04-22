@@ -29,6 +29,14 @@ struct Breed: Decodable {
     let id: String
     let name: String
     let description: String
+    var sampleImageURL: String?
+    
+    init(id: String, name: String, description: String, sampleImageURL: String? = nil) {
+        self.id = id
+        self.name = name
+        self.description = description
+        self.sampleImageURL = sampleImageURL
+    }
 }
 
 struct CatImage: Decodable {
@@ -68,14 +76,13 @@ class Network: NSObject, URLSessionDelegate {
             debugPrint("DOWNLOAD: \(url.absoluteString)")
             
             let fileName = url.lastPathComponent
-            guard let localUrl = NSURL(fileURLWithPath: NSTemporaryDirectory()).appendingPathComponent(fileName) else {
+            let cacheDirectory = FileManager.default.urls(for: .cachesDirectory, in: .allDomainsMask).first
+            guard let localUrl = cacheDirectory?.appendingPathComponent(fileName) else {
                 completion(NetworkError.emptyResponse, nil)
                 return
             }
-            
-            try? FileManager.default.removeItem(at: localUrl)
-            
-            guard !FileManager.default.fileExists(atPath: localUrl.absoluteString) else {
+                        
+            guard !FileManager.default.fileExists(atPath: localUrl.path) else {
                 completion(nil, localUrl)
                 return
             }
@@ -87,8 +94,14 @@ class Network: NSObject, URLSessionDelegate {
                     return
                 }
                 
+                guard !FileManager.default.fileExists(atPath: localUrl.path) else {
+                    completion(nil, localUrl)
+                    return
+                }
+                
                 do {
                     try FileManager.default.copyItem(at: location, to: localUrl)
+                    try FileManager.default.removeItem(at: location)
                     completion(nil, localUrl)
                 }
                 catch {

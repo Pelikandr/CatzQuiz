@@ -7,6 +7,8 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		4C285E2B2450C7B900B40B9C /* UIImage+Network.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4C285E2A2450C7B900B40B9C /* UIImage+Network.swift */; };
+		4C285E2D2450E7E000B40B9C /* UIColor+Random.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4C285E2C2450E7E000B40B9C /* UIColor+Random.swift */; };
 		4D2F458D2450890F0073DFAC /* LeaderboardTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4D2F458C2450890F0073DFAC /* LeaderboardTableViewCell.swift */; };
 		4D2F458F24508BC30073DFAC /* GuideViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4D2F458E24508BC30073DFAC /* GuideViewController.swift */; };
 		4D2F459224508BFC0073DFAC /* GuideAdapter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4D2F459124508BFC0073DFAC /* GuideAdapter.swift */; };
@@ -29,6 +31,8 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		4C285E2A2450C7B900B40B9C /* UIImage+Network.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIImage+Network.swift"; sourceTree = "<group>"; };
+		4C285E2C2450E7E000B40B9C /* UIColor+Random.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIColor+Random.swift"; sourceTree = "<group>"; };
 		4D2F458C2450890F0073DFAC /* LeaderboardTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LeaderboardTableViewCell.swift; sourceTree = "<group>"; };
 		4D2F458E24508BC30073DFAC /* GuideViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GuideViewController.swift; sourceTree = "<group>"; };
 		4D2F459124508BFC0073DFAC /* GuideAdapter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GuideAdapter.swift; sourceTree = "<group>"; };
@@ -63,6 +67,15 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		4C285E292450C7A000B40B9C /* UIHelpers */ = {
+			isa = PBXGroup;
+			children = (
+				4C285E2A2450C7B900B40B9C /* UIImage+Network.swift */,
+				4C285E2C2450E7E000B40B9C /* UIColor+Random.swift */,
+			);
+			path = UIHelpers;
+			sourceTree = "<group>";
+		};
 		4D2F459024508BC70073DFAC /* GuideTableVIewController */ = {
 			isa = PBXGroup;
 			children = (
@@ -102,6 +115,7 @@
 		4DE6B3382447A71900A9665E /* CatzQuiz */ = {
 			isa = PBXGroup;
 			children = (
+				4C285E292450C7A000B40B9C /* UIHelpers */,
 				66454FE7244CB4F200142398 /* Network */,
 				4DE6B33D2447A71900A9665E /* MenuViewController.swift */,
 				4DEF4E1E24488D3D00282178 /* QuizViewController.swift */,
@@ -201,9 +215,11 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				4C285E2B2450C7B900B40B9C /* UIImage+Network.swift in Sources */,
 				4D3F2F2D244E842800C23B86 /* LeaderboardAdapter.swift in Sources */,
 				4D2F459424508C270073DFAC /* GuideCollectionViewCell.swift in Sources */,
 				4DE6B33E2447A71900A9665E /* MenuViewController.swift in Sources */,
+				4C285E2D2450E7E000B40B9C /* UIColor+Random.swift in Sources */,
 				4D2F459224508BFC0073DFAC /* GuideAdapter.swift in Sources */,
 				66454FE9244CB4FE00142398 /* Helpers.swift in Sources */,
 				4DEF4E1F24488D3D00282178 /* QuizViewController.swift in Sources */,
