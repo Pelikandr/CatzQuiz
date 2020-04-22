@@ -10,23 +10,22 @@ import UIKit
 
 
 class MenuViewController: UIViewController {
-
+    
     @IBOutlet weak var learnButton: UIButton!
     @IBOutlet weak var playButton: UIButton!
     @IBOutlet weak var progressView: UIProgressView!
     
     override func viewDidLoad() {
         super.viewDidLoad()
-
     }
-
+    
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
         super.prepare(for: segue, sender: nil)
         if let next = segue.destination as? QuizViewController {
             next.questions = questions
         }
     }
-
+    
     @IBAction func onLearn(_ sender: Any) {
     }
     
@@ -37,16 +36,16 @@ class MenuViewController: UIViewController {
         questions.removeAll()
         prepareGameData()
     }
-
+    
     // MARK: - Private
-
+    
     private var questions = [Question]()
-
+    
     private func prepareGameData() {
         getAllBreeds { [weak self] (breeds: [Breed]) in
             guard let self = self else { return }
             self.updateProgress()
-
+            
             var allAnswers = [[Breed]]()
             for _ in 0..<10 {
                 var answers = [Breed]()
@@ -61,7 +60,7 @@ class MenuViewController: UIViewController {
             self.generateQuestions(with: allAnswers)
         }
     }
-
+    
     private func generateQuestions(with allAnswers: [[Breed]]) {
         let dispatchGroup = DispatchGroup()
         for answers in allAnswers {
@@ -75,7 +74,7 @@ class MenuViewController: UIViewController {
             dispatchGroup.enter()
             getImage(with: rightBreedID) { [weak self] (image: CatImage) in
                 self?.updateProgress()
-
+                
                 self?.saveImage(with: image.url) { [weak self] (localURL: URL) in
                     self?.updateProgress()
                     let question = Question(imageURL: localURL, answers: resAnswers, imageSize: Size(width: image.width, height: image.height))
@@ -84,23 +83,23 @@ class MenuViewController: UIViewController {
                 }
             }
         }
-
+        
         dispatchGroup.notify(queue: DispatchQueue.main) { [weak self] in
             self?.playGame()
         }
     }
-
+    
     private func updateProgress() {
         DispatchQueue.main.async { [weak self] in
             self?.progressView.progress += 0.04
         }
     }
-
+    
     private func playGame() {
         progressView.progress = 1
         performSegue(withIdentifier: "PlayQuizSegue", sender: self)
     }
-
+    
     private func getAllBreeds(completion: (([Breed]) -> Void)?) {
         Network.shared.getAllBreeds { (error: Error?, data: [Breed]?) in
             if let error = error {
@@ -112,7 +111,7 @@ class MenuViewController: UIViewController {
             }
         }
     }
-
+    
     private func getImage(with breedID: String, completion: ((CatImage) -> Void)?) {
         Network.shared.getImage(with: breedID) { (error: Error?, image: [CatImage]?) in
             if let error = error {
@@ -124,7 +123,7 @@ class MenuViewController: UIViewController {
             }
         }
     }
-
+    
     private func saveImage(with url: String, completion: ((URL) -> Void)?) {
         Network.shared.saveImage(from: url) { (error: Error?, localURL: URL?) in
             if let error = error {
@@ -136,12 +135,12 @@ class MenuViewController: UIViewController {
             }
         }
     }
-
+    
     private func disableView() {
         learnButton.isEnabled = false
         playButton.isEnabled = false
     }
-
+    
     private func enableView() {
         learnButton.isEnabled = true
         playButton.isEnabled = true

@@ -19,7 +19,7 @@ enum Route {
     case post(String)
     case put(String)
     case delete(String)
-
+    
     var path: String {
         switch self {
         case .get(let path):
@@ -32,7 +32,7 @@ enum Route {
             return path
         }
     }
-
+    
     var method: String {
         switch self {
         case .get:

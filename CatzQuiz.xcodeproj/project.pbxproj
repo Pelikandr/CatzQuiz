@@ -7,6 +7,8 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		4D3F2F2B244E841300C23B86 /* LeaderBoardViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4D3F2F2A244E841300C23B86 /* LeaderBoardViewController.swift */; };
+		4D3F2F2D244E842800C23B86 /* LeaderboardAdapter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4D3F2F2C244E842800C23B86 /* LeaderboardAdapter.swift */; };
 		4DE6B33A2447A71900A9665E /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4DE6B3392447A71900A9665E /* AppDelegate.swift */; };
 		4DE6B33C2447A71900A9665E /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4DE6B33B2447A71900A9665E /* SceneDelegate.swift */; };
 		4DE6B33E2447A71900A9665E /* MenuViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4DE6B33D2447A71900A9665E /* MenuViewController.swift */; };
@@ -22,6 +24,8 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		4D3F2F2A244E841300C23B86 /* LeaderBoardViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LeaderBoardViewController.swift; sourceTree = "<group>"; };
+		4D3F2F2C244E842800C23B86 /* LeaderboardAdapter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LeaderboardAdapter.swift; sourceTree = "<group>"; };
 		4DE6B3362447A71900A9665E /* CatzQuiz.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = CatzQuiz.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		4DE6B3392447A71900A9665E /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		4DE6B33B2447A71900A9665E /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
@@ -49,6 +53,15 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		4D3F2F29244E83D200C23B86 /* Leaderboard */ = {
+			isa = PBXGroup;
+			children = (
+				4D3F2F2A244E841300C23B86 /* LeaderBoardViewController.swift */,
+				4D3F2F2C244E842800C23B86 /* LeaderboardAdapter.swift */,
+			);
+			path = Leaderboard;
+			sourceTree = "<group>";
+		};
 		4DE6B32D2447A71800A9665E = {
 			isa = PBXGroup;
 			children = (
@@ -71,6 +84,7 @@
 				66454FE7244CB4F200142398 /* Network */,
 				4DE6B33D2447A71900A9665E /* MenuViewController.swift */,
 				4DEF4E1E24488D3D00282178 /* QuizViewController.swift */,
+				4D3F2F29244E83D200C23B86 /* Leaderboard */,
 				4DE6B3392447A71900A9665E /* AppDelegate.swift */,
 				4DE6B33B2447A71900A9665E /* SceneDelegate.swift */,
 				4DE6B33F2447A71900A9665E /* Main.storyboard */,
@@ -164,6 +178,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				4D3F2F2D244E842800C23B86 /* LeaderboardAdapter.swift in Sources */,
 				4DE6B33E2447A71900A9665E /* MenuViewController.swift in Sources */,
 				66454FE9244CB4FE00142398 /* Helpers.swift in Sources */,
 				4DEF4E1F24488D3D00282178 /* QuizViewController.swift in Sources */,
@@ -173,6 +188,7 @@
 				4DEF4E1D244887DC00282178 /* Network.swift in Sources */,
 				4DE6B33C2447A71900A9665E /* SceneDelegate.swift in Sources */,
 				66454FED244CB54000142398 /* CatzQuizTarget.swift in Sources */,
+				4D3F2F2B244E841300C23B86 /* LeaderBoardViewController.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

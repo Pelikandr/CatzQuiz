@@ -17,7 +17,7 @@ extension CatzQuizTarget: RequestTarget {
     var URL: String {
         NetworkConfiguration.baseURL
     }
-
+    
     var route: Route {
         switch self {
         case .getAllBreeds:
@@ -26,7 +26,7 @@ extension CatzQuizTarget: RequestTarget {
             return .get("/images/search")
         }
     }
-
+    
     var params: [String : Any]? {
         switch self {
         case .getAllBreeds:

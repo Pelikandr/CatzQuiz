@@ -38,22 +38,22 @@ struct CatImage: Decodable {
 }
 
 class Network: NSObject, URLSessionDelegate {
-
+    
     static var shared: Network = Network()
-
+    
     private lazy var dataSession: URLSession = { return URLSession(configuration: .default) }()
     private lazy var downloadsSession: URLSession = {
-        return URLSession(configuration: URLSessionConfiguration.default)//background(withIdentifier: "CatzQuizDownloadSession"))
+        return URLSession(configuration: URLSessionConfiguration.default)
     }()
-
+    
     deinit {
         self.dataSession.invalidateAndCancel()
     }
-
+    
     func getAllBreeds(completion: @escaping (Error?, [Breed]?) -> Void) {
         request(CatzQuizTarget.getAllBreeds, completion: completion)
     }
-
+    
     func getImage(with breedID: String, completion: @escaping (Error?, [CatImage]?) -> Void) {
         request(CatzQuizTarget.getImage(breedID), completion: completion)
     }
@@ -65,7 +65,7 @@ class Network: NSObject, URLSessionDelegate {
                 return
             }
             debugPrint("DOWNLOAD: \(url.absoluteString)")
-
+            
             let fileName = url.lastPathComponent
             guard let localUrl = NSURL(fileURLWithPath: NSTemporaryDirectory()).appendingPathComponent(fileName) else {
                 completion(NetworkError.emptyResponse, nil)
@@ -78,14 +78,14 @@ class Network: NSObject, URLSessionDelegate {
                 completion(nil, localUrl)
                 return
             }
-
+            
             let downloadTask = self?.downloadsSession.downloadTask(with: url) { (location: URL?, _: URLResponse?, error: Error?) in
-
+                
                 guard let location = location else {
                     completion(NetworkError.emptyResponse, nil)
                     return
                 }
-
+                
                 do {
                     try FileManager.default.copyItem(at: location, to: localUrl)
                     completion(nil, localUrl)
@@ -97,13 +97,13 @@ class Network: NSObject, URLSessionDelegate {
             downloadTask?.resume()
         }
     }
-
+    
     // MARK: - Private
-
+    
     private func request<Output: Decodable>(_ target: RequestTarget, completion: @escaping (Error?, Output?) -> Void) {
-
+        
         DispatchQueue.global(qos: .userInitiated).async {
-
+            
             guard var urlComponents = URLComponents(string: "\(target.URL)\(target.route.path)") else {
                 completion(NetworkError.invalidRequest, nil)
                 return
@@ -111,20 +111,20 @@ class Network: NSObject, URLSessionDelegate {
             urlComponents.queryItems = target.params?.map({ (arg) -> URLQueryItem in
                 return URLQueryItem(name: arg.key, value: String(describing: arg.value))
             })
-
+            
             guard let url = urlComponents.url else {
                 completion(NetworkError.invalidRequest, nil)
                 return
             }
-
+            
             var urlRequest = URLRequest(url: url)
             urlRequest.httpMethod = target.route.method
             urlRequest.setValue(NetworkConfiguration.apiKey, forHTTPHeaderField: "x-api-key")
-
+            
             debugPrint("REQUEST: \(urlRequest)")
-
+            
             let dataTask = self.dataSession.dataTask(with: urlRequest) { (data, response, error) in
-               if let error = error {
+                if let error = error {
                     completion(error, nil)
                 }
                 else if let data = data {
@@ -137,7 +137,7 @@ class Network: NSObject, URLSessionDelegate {
                     }
                 }
             }
-
+            
             dataTask.resume()
         }
     }
