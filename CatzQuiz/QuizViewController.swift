@@ -111,7 +111,7 @@ class QuizViewController: UIViewController {
             title = "Awesome! You've got \(score) points"
         } else if score >= 30 {
             title = "Good job! You've got \(score) points"
-        } else if score == 10 {
+        } else if score >= 10 {
             title = "You've got \(score) points. Try reading guide!"
         }
         
