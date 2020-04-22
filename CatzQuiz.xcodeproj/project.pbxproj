@@ -63,14 +63,14 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
-		4D2F459024508BC70073DFAC /* GuideVIewController */ = {
+		4D2F459024508BC70073DFAC /* GuideTableVIewController */ = {
 			isa = PBXGroup;
 			children = (
 				4D2F458E24508BC30073DFAC /* GuideViewController.swift */,
 				4D2F459124508BFC0073DFAC /* GuideAdapter.swift */,
 				4D2F459324508C270073DFAC /* GuideCollectionViewCell.swift */,
 			);
-			path = GuideVIewController;
+			path = GuideTableVIewController;
 			sourceTree = "<group>";
 		};
 		4D3F2F29244E83D200C23B86 /* LeaderboardViewController */ = {
@@ -106,9 +106,9 @@
 				4DE6B33D2447A71900A9665E /* MenuViewController.swift */,
 				4DEF4E1E24488D3D00282178 /* QuizViewController.swift */,
 				4D3F2F29244E83D200C23B86 /* LeaderboardViewController */,
-				4D2F459024508BC70073DFAC /* GuideVIewController */,
-				4DE6B3392447A71900A9665E /* AppDelegate.swift */,
+				4D2F459024508BC70073DFAC /* GuideTableVIewController */,
 				4DC30F9724509F0E0041C563 /* GuideDetailViewController.swift */,
+				4DE6B3392447A71900A9665E /* AppDelegate.swift */,
 				4DE6B33B2447A71900A9665E /* SceneDelegate.swift */,
 				4DE6B33F2447A71900A9665E /* Main.storyboard */,
 				4DE6B3422447A72100A9665E /* Assets.xcassets */,
