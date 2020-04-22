@@ -271,7 +271,7 @@
                         <outletCollection property="answerButtons" destination="s2j-l3-9j1" collectionClass="NSMutableArray" id="2US-ac-Kf3"/>
                         <outletCollection property="answerButtons" destination="RRk-E7-qB1" collectionClass="NSMutableArray" id="rw1-gZ-KIp"/>
                         <segue destination="98n-wK-mur" kind="show" identifier="LeaderboardSeague" id="cJz-x9-d0d"/>
-                        <segue destination="U1D-A7-77U" kind="presentation" id="n95-Yv-4xb"/>
+                        <segue destination="U1D-A7-77U" kind="presentation" identifier="GuideSegue" id="n95-Yv-4xb"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="HOG-gl-YGg" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
@@ -290,16 +290,42 @@
                                 <rect key="frame" x="0.0" y="112" width="414" height="750"/>
                                 <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
                                 <prototypes>
-                                    <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="none" indentationWidth="10" reuseIdentifier="leaderboardCell" id="OH6-cY-iYN">
+                                    <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="none" indentationWidth="10" reuseIdentifier="leaderboardCell" id="OH6-cY-iYN" customClass="LeaderboardTableViewCell" customModule="CatzQuiz" customModuleProvider="target">
                                         <rect key="frame" x="0.0" y="28" width="414" height="44"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" preservesSuperviewLayoutMargins="YES" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="OH6-cY-iYN" id="Vu5-FD-AU7">
                                             <rect key="frame" x="0.0" y="0.0" width="414" height="44"/>
                                             <autoresizingMask key="autoresizingMask"/>
+                                            <subviews>
+                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Name" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="bWm-1s-png">
+                                                    <rect key="frame" x="25" y="9" width="57" height="27"/>
+                                                    <fontDescription key="fontDescription" type="system" pointSize="22"/>
+                                                    <nil key="textColor"/>
+                                                    <nil key="highlightedColor"/>
+                                                </label>
+                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Score" textAlignment="right" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="aw8-j4-XHh">
+                                                    <rect key="frame" x="334" y="8" width="55" height="27"/>
+                                                    <fontDescription key="fontDescription" type="system" pointSize="22"/>
+                                                    <nil key="textColor"/>
+                                                    <nil key="highlightedColor"/>
+                                                </label>
+                                            </subviews>
+                                            <constraints>
+                                                <constraint firstItem="aw8-j4-XHh" firstAttribute="top" secondItem="Vu5-FD-AU7" secondAttribute="top" constant="8" id="IpN-A0-yn6"/>
+                                                <constraint firstAttribute="bottom" secondItem="aw8-j4-XHh" secondAttribute="bottom" constant="9" id="L3z-Ot-3gW"/>
+                                                <constraint firstAttribute="bottom" secondItem="bWm-1s-png" secondAttribute="bottom" constant="8" id="fXo-pT-Lin"/>
+                                                <constraint firstItem="bWm-1s-png" firstAttribute="leading" secondItem="Vu5-FD-AU7" secondAttribute="leading" constant="25" id="iW7-xI-IOg"/>
+                                                <constraint firstItem="bWm-1s-png" firstAttribute="top" secondItem="Vu5-FD-AU7" secondAttribute="top" constant="9" id="keU-sC-Ceg"/>
+                                                <constraint firstAttribute="trailing" secondItem="aw8-j4-XHh" secondAttribute="trailing" constant="25" id="mZl-YR-UBz"/>
+                                            </constraints>
                                         </tableViewCellContentView>
                                         <accessibility key="accessibilityConfiguration">
                                             <accessibilityTraits key="traits" notEnabled="YES"/>
                                         </accessibility>
+                                        <connections>
+                                            <outlet property="nameLabel" destination="bWm-1s-png" id="RIn-W6-2zZ"/>
+                                            <outlet property="scoreLabel" destination="aw8-j4-XHh" id="ZZy-yS-Jhz"/>
+                                        </connections>
                                     </tableViewCell>
                                 </prototypes>
                             </tableView>
@@ -549,6 +575,6 @@
     <inferredMetricsTieBreakers>
         <segue reference="n95-Yv-4xb"/>
         <segue reference="cJz-x9-d0d"/>
-        <segue reference="wDY-u6-Sb5"/>
+        <segue reference="9Ew-t6-Hjs"/>
     </inferredMetricsTieBreakers>
 </document>
