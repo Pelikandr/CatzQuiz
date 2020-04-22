@@ -28,6 +28,7 @@ extension NetworkError: LocalizedError {
 struct Breed: Decodable {
     let id: String
     let name: String
+    let description: String
 }
 
 struct CatImage: Decodable {

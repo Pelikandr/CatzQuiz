@@ -368,16 +368,16 @@
             </objects>
             <point key="canvasLocation" x="1697" y="453"/>
         </scene>
-        <!--View Controller-->
+        <!--Guide View Controller-->
         <scene sceneID="LtX-C4-rdE">
             <objects>
-                <viewController id="mwL-vu-62l" sceneMemberID="viewController">
+                <viewController id="mwL-vu-62l" customClass="GuideViewController" customModule="CatzQuiz" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="WaK-Fb-n9e">
-                        <rect key="frame" x="0.0" y="0.0" width="414" height="842"/>
+                        <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <collectionView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" dataMode="prototypes" translatesAutoresizingMaskIntoConstraints="NO" id="EVP-m8-0HX">
-                                <rect key="frame" x="0.0" y="56" width="414" height="752"/>
+                                <rect key="frame" x="0.0" y="88" width="414" height="774"/>
                                 <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
                                 <collectionViewFlowLayout key="collectionViewLayout" automaticEstimatedItemSize="YES" minimumLineSpacing="10" minimumInteritemSpacing="10" id="KTQ-Rr-8fR">
                                     <size key="itemSize" width="138" height="169"/>
@@ -386,74 +386,39 @@
                                     <inset key="sectionInset" minX="0.0" minY="0.0" maxX="0.0" maxY="0.0"/>
                                 </collectionViewFlowLayout>
                                 <cells>
-                                    <collectionViewCell opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" id="UvY-3b-4pv">
+                                    <collectionViewCell opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" reuseIdentifier="guideCell" id="UvY-3b-4pv" customClass="GuideCollectionViewCell" customModule="CatzQuiz" customModuleProvider="target">
                                         <rect key="frame" x="0.0" y="0.0" width="130" height="169"/>
                                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                         <collectionViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" insetsLayoutMarginsFromSafeArea="NO" id="AbW-Qc-fwf">
                                             <rect key="frame" x="0.0" y="0.0" width="130" height="169"/>
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
-                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Breed" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="uCm-47-xHL">
-                                                    <rect key="frame" x="43" y="135" width="52" height="24"/>
-                                                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                                    <fontDescription key="fontDescription" type="system" pointSize="20"/>
+                                                <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="wzi-p3-7ha">
+                                                    <rect key="frame" x="8" y="12" width="115" height="115"/>
+                                                </imageView>
+                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Breed" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="uCm-47-xHL">
+                                                    <rect key="frame" x="44.5" y="135.5" width="41" height="18"/>
+                                                    <fontDescription key="fontDescription" type="system" pointSize="15"/>
                                                     <nil key="textColor"/>
                                                     <nil key="highlightedColor"/>
                                                 </label>
-                                                <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="wzi-p3-7ha">
-                                                    <rect key="frame" x="8" y="12" width="115" height="115"/>
-                                                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                                </imageView>
                                             </subviews>
+                                            <constraints>
+                                                <constraint firstAttribute="trailing" secondItem="wzi-p3-7ha" secondAttribute="trailing" constant="7" id="9CL-MT-LSb"/>
+                                                <constraint firstItem="uCm-47-xHL" firstAttribute="top" secondItem="wzi-p3-7ha" secondAttribute="bottom" constant="8.5" id="9sq-un-WqX"/>
+                                                <constraint firstItem="wzi-p3-7ha" firstAttribute="top" secondItem="AbW-Qc-fwf" secondAttribute="top" constant="12" id="Fqc-0T-O6L"/>
+                                                <constraint firstItem="wzi-p3-7ha" firstAttribute="leading" secondItem="AbW-Qc-fwf" secondAttribute="leading" constant="8" id="N1G-c9-DtW"/>
+                                                <constraint firstItem="uCm-47-xHL" firstAttribute="centerY" secondItem="AbW-Qc-fwf" secondAttribute="centerY" constant="60" id="S4h-qU-X2K"/>
+                                                <constraint firstItem="uCm-47-xHL" firstAttribute="centerX" secondItem="AbW-Qc-fwf" secondAttribute="centerX" id="rTn-hu-XO1"/>
+                                            </constraints>
                                         </collectionViewCellContentView>
+                                        <color key="backgroundColor" red="0.35294117650000001" green="0.66274509800000003" blue="0.13725490200000001" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                         <size key="customSize" width="130" height="169"/>
                                         <connections>
+                                            <outlet property="catImageView" destination="wzi-p3-7ha" id="GBx-tz-625"/>
+                                            <outlet property="titleLabel" destination="uCm-47-xHL" id="DwW-AY-hHc"/>
                                             <segue destination="kUp-xb-C04" kind="show" id="KCO-k5-Hac"/>
                                         </connections>
-                                    </collectionViewCell>
-                                    <collectionViewCell opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" id="YZ8-vz-2P5">
-                                        <rect key="frame" x="142" y="0.0" width="130" height="169"/>
-                                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                        <collectionViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" insetsLayoutMarginsFromSafeArea="NO" id="wUG-Rt-hes">
-                                            <rect key="frame" x="0.0" y="0.0" width="130" height="169"/>
-                                            <autoresizingMask key="autoresizingMask"/>
-                                            <subviews>
-                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Breed" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Cks-SV-Vio">
-                                                    <rect key="frame" x="43" y="135" width="52" height="24"/>
-                                                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                                    <fontDescription key="fontDescription" type="system" pointSize="20"/>
-                                                    <nil key="textColor"/>
-                                                    <nil key="highlightedColor"/>
-                                                </label>
-                                                <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="B8y-Zs-ofh">
-                                                    <rect key="frame" x="8" y="12" width="115" height="115"/>
-                                                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                                </imageView>
-                                            </subviews>
-                                        </collectionViewCellContentView>
-                                        <size key="customSize" width="130" height="169"/>
-                                    </collectionViewCell>
-                                    <collectionViewCell opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" id="cjx-Di-HoG">
-                                        <rect key="frame" x="284" y="0.0" width="130" height="169"/>
-                                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                        <collectionViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" insetsLayoutMarginsFromSafeArea="NO" id="LKZ-iy-niF">
-                                            <rect key="frame" x="0.0" y="0.0" width="130" height="169"/>
-                                            <autoresizingMask key="autoresizingMask"/>
-                                            <subviews>
-                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Breed" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="cV0-le-jxf">
-                                                    <rect key="frame" x="43" y="135" width="52" height="24"/>
-                                                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                                    <fontDescription key="fontDescription" type="system" pointSize="20"/>
-                                                    <nil key="textColor"/>
-                                                    <nil key="highlightedColor"/>
-                                                </label>
-                                                <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="Cgl-X6-g5C">
-                                                    <rect key="frame" x="8" y="12" width="115" height="115"/>
-                                                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                                </imageView>
-                                            </subviews>
-                                        </collectionViewCellContentView>
-                                        <size key="customSize" width="130" height="169"/>
                                     </collectionViewCell>
                                 </cells>
                             </collectionView>
@@ -468,17 +433,20 @@
                         <viewLayoutGuide key="safeArea" id="FTC-ix-JP2"/>
                     </view>
                     <navigationItem key="navigationItem" id="ZtY-NS-ejU"/>
+                    <connections>
+                        <outlet property="collectionView" destination="EVP-m8-0HX" id="Ku5-62-Ggg"/>
+                    </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="x0d-hl-iL4" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
             <point key="canvasLocation" x="1676.8115942028987" y="-230.35714285714283"/>
         </scene>
-        <!--Table View Controller-->
+        <!--Guide Detail Table View Controller-->
         <scene sceneID="YY4-M9-2lR">
             <objects>
-                <tableViewController id="kUp-xb-C04" sceneMemberID="viewController">
+                <tableViewController id="kUp-xb-C04" customClass="GuideDetailTableViewController" customModule="CatzQuiz" customModuleProvider="target" sceneMemberID="viewController">
                     <tableView key="view" clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="static" style="plain" separatorStyle="default" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="28" sectionFooterHeight="28" id="CKo-Yr-RZP">
-                        <rect key="frame" x="0.0" y="0.0" width="414" height="842"/>
+                        <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
                         <sections>
@@ -547,6 +515,11 @@
                         </connections>
                     </tableView>
                     <navigationItem key="navigationItem" id="t01-hp-zRJ"/>
+                    <connections>
+                        <outlet property="breedLabel" destination="SWs-8M-mD2" id="mQ4-Jo-qXz"/>
+                        <outlet property="catImageView" destination="00R-kO-pDC" id="laZ-jD-TRQ"/>
+                        <outlet property="descriptionTextView" destination="lGH-ob-Xbc" id="eCb-0S-dF0"/>
+                    </connections>
                 </tableViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="sDn-Sv-ibz" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
@@ -555,11 +528,11 @@
         <!--Navigation Controller-->
         <scene sceneID="HyZ-ah-Idj">
             <objects>
-                <navigationController automaticallyAdjustsScrollViewInsets="NO" id="U1D-A7-77U" sceneMemberID="viewController">
+                <navigationController automaticallyAdjustsScrollViewInsets="NO" modalPresentationStyle="fullScreen" id="U1D-A7-77U" sceneMemberID="viewController">
                     <toolbarItems/>
                     <navigationItem key="navigationItem" id="K4X-mI-4Hb"/>
                     <navigationBar key="navigationBar" contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="NO" id="8nv-c9-bxe">
-                        <rect key="frame" x="0.0" y="0.0" width="414" height="56"/>
+                        <rect key="frame" x="0.0" y="44" width="414" height="44"/>
                         <autoresizingMask key="autoresizingMask"/>
                     </navigationBar>
                     <nil name="viewControllers"/>
@@ -575,6 +548,6 @@
     <inferredMetricsTieBreakers>
         <segue reference="n95-Yv-4xb"/>
         <segue reference="cJz-x9-d0d"/>
-        <segue reference="9Ew-t6-Hjs"/>
+        <segue reference="wDY-u6-Sb5"/>
     </inferredMetricsTieBreakers>
 </document>
